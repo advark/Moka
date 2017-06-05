@@ -1,4 +1,4 @@
-# libHash
+# Moka
 Copyright(c) 2011-2017, Yanick Poirier
 
 ## Description
