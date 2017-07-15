@@ -18,48 +18,75 @@ package moka.util.checksum;
 import java.util.zip.Checksum;
 
 /**
+ * This class computes a CRC16-CCITT value use the polynomial 0x1021.
  *
- * @author ypoirier
+ * @author Yanick Poirier
  */
 public class CRC16CCITT
         implements Checksum {
 
-    public void update( byte b[] ) {
-        update( b, 0, b.length );
+    private int crc;
+
+    /**
+     * This method is equivalent to:
+     * <pre>
+     * update(data, 0, data.length);
+     * </pre>
+     *
+     * @param data
+     */
+    public void update( byte data[] ) {
+        update( data, 0, data.length );
     }
 
     @Override
-    public void update( int b ) {
+    public void update( int data ) {
         byte buffer[] = new byte[ 1 ];
-        buffer[0] = (byte) ( b & 0xff );
+        buffer[0] = (byte) ( data & 0xff );
 
         update( buffer, 0, 1 );
     }
 
+    /** @inheritDoc */
     @Override
-    public void update( byte[] b,
+    public void update( byte[] data,
                         int off,
                         int len ) {
+        int crc_temp;
+        int b;
+
         for( int j = off; j < len; j++ ) {
-            mValue = ( ( mValue >>> 8 ) | ( mValue << 8 ) ) & 0xffff;
-            mValue ^= ( b[j] & 0xff );//byte to int, trunc sign
-            mValue ^= ( ( mValue & 0xff ) >> 4 );
-            mValue ^= ( mValue << 12 ) & 0xffff;
-            mValue ^= ( ( mValue & 0xFF ) << 5 ) & 0xffff;
+            b = data[j];
+
+            for( int i = 0; i < 8; i++ ) {
+                crc_temp = ( crc >> 15 ) ^ ( b >> 7 );
+
+                crc <<= 1;
+                crc &= 0xffff;
+
+                if( crc_temp > 0 ) {
+                    crc ^= 0x1021;
+                    crc &= 0xffff;
+                }
+
+                b <<= 1;
+                b &= 0xffff;
+            }
         }
 
-        mValue &= 0xffff;
+        crc &= 0xffff;
     }
 
+    /** @inheritDoc */
     @Override
     public long getValue() {
-        return mValue;
+        return crc;
     }
 
+    /** @inheritDoc */
     @Override
     public void reset() {
-        mValue = 0xffff;
+        crc = 0xffff;
     }
 
-    private int mValue;
 }
