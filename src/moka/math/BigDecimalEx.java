@@ -92,11 +92,11 @@ public class BigDecimalEx
     }
 
     /**
-     * Translates a {@code BigInteger} unscaled value and an {@code int} scale into a
+     * Translates a {@code BigInteger} un-scaled value and an {@code int} scale into a
      * {@code BigDecimalEx}.
      * The value of the {@code BigDecimalEx} is (<code>unscaledVal × 10<sup>-scale</sup></code>).
      *
-     * @param unscaledVal - unscaled value of the {@code BigDecimalEx}.
+     * @param unscaledVal - un-scaled value of the {@code BigDecimalEx}.
      * @param scale       - scale of the {@code BigDecimalEx}.
      */
     public BigDecimalEx( BigInteger unscaledVal,
@@ -105,13 +105,13 @@ public class BigDecimalEx
     }
 
     /**
-     * Translates a {@code BigInteger} unscaled value and an {@code int} scale into a
+     * Translates a {@code BigInteger} un-scaled value and an {@code int} scale into a
      * {@code BigDecimalEx},
      * with rounding according to the context settings. The value of the {@code BigDecimalEx} is
      * (<code>unscaledVal × 10<sup>-scale</sup></code>), rounded according to the precision and
      * rounding mode settings.
      *
-     * @param unscaledVal unscaled value of the {@code BigDecimalEx}.
+     * @param unscaledVal un-scaled value of the {@code BigDecimalEx}.
      * @param scale       scale of the {@code BigDecimal}.
      * @param mc          the context to use.
      *
@@ -141,8 +141,8 @@ public class BigDecimalEx
 
     /**
      * Translates a character array representation of a {@code BigDecimalEx} into a
-     * {@code BigDecimalEx},
-     * accepting the same sequence of characters as the {@link BigDecimalEx(String)} constructor.
+     * {@code BigDecimalEx}, accepting the same sequence of characters as the
+     * {@link #BigDecimalEx(String)} constructor.
      * <p>
      * Note that if the sequence of characters is already available as a character array, using this
      * constructor is faster than converting the char array to string and using the
@@ -158,9 +158,8 @@ public class BigDecimalEx
 
     /**
      * Translates a character array representation of a {@code BigDecimalEx} into a
-     * {@code BigDecimalEx},
-     * accepting the same sequence of characters as the {@link BigDecimalEx(String)} constructor,
-     * while allowing a sub-array to be specified.
+     * {@code BigDecimalEx}, accepting the same sequence of characters as the
+     * {@link #BigDecimalEx(String)} constructor, while allowing a sub-array to be specified.
      * <p>
      * Note that if the sequence of characters is already available within a character array, using
      * this constructor is faster than converting the char array to string and using the
@@ -181,10 +180,9 @@ public class BigDecimalEx
 
     /**
      * Translates a character array representation of a {@code BigDecimalEx} into a
-     * {@code BigDecimalEx},
-     * accepting the same sequence of characters as the {@link BigDecimalEx(String)} constructor,
-     * while
-     * allowing a sub-array to be specified and with rounding according to the context settings.
+     * {@code BigDecimalEx},accepting the same sequence of characters as the
+     * {@link #BigDecimalEx(String)} constructor, while allowing a sub-array to be specified and
+     * with rounding according to the context settings.
      * <p>
      * Note that if the sequence of characters is already available within a character array, using
      * this constructor is faster than converting the char array to string and using the
@@ -210,13 +208,13 @@ public class BigDecimalEx
 
     /**
      * Translates a character array representation of a {@code BigDecimalEx} into a
-     * {@code BigDecimalEx},
-     * accepting the same sequence of characters as the {@link BigDecimalEx(String)} constructor and
-     * with rounding according to the context settings.
+     * {@code BigDecimalEx}, accepting the same sequence of characters as the
+     * {@link #BigDecimalEx(String)} constructor and with rounding according to the context
+     * settings.
      * <p>
      * Note that if the sequence of characters is already available as a character array, using this
-     * constructor is faster than converting the char array to string and using the
-     * {@code BigDecimalEx(String)} constructor.
+     * constructor is faster than converting the char array to string and using
+     * the{@code BigDecimalEx(String)} constructor.
      *
      * @param in char array that is the source of characters.
      * @param mc the context to use.
@@ -232,34 +230,27 @@ public class BigDecimalEx
 
     /**
      * Translates a {@code double} into a {@code BigDecimalEx} which is the exact decimal
-     * representation
-     * of the {@code double}'s binary floating-point value. The scale of the returned
-     * {@code BigDecimalEx}
-     * is the smallest value such that (<code>10<sup>scale</sup> × val</code>) is an integer.
+     * representation of the {@code double}'s binary floating-point value. The scale of the returned
+     * {@code BigDecimalEx} is the smallest value such that (<code>10<sup>scale</sup> × val</code>)
+     * is an integer.
      * <p>
      * <b>Notes:</b>
      * <ol>
      * <li>The results of this constructor can be somewhat unpredictable. One might assume that
-     * writing
-     * {@code new BigDecimal(0.1)} in Java creates a {@code BigDecimalEx} which is exactly equal to
-     * 0.1
-     * (an unscaled value of 1, with a scale of 1), but it is actually equal to
+     * writing {@code new BigDecimal(0.1)} in Java creates a {@code BigDecimalEx} which is exactly
+     * equal to 0.1 (an unscaled value of 1, with a scale of 1), but it is actually equal to
      * 0.1000000000000000055511151231257827021181583404541015625. This is because 0.1 cannot be
-     * represented
-     * exactly as a {@code double} (or, for that matter, as a binary fraction of any finite length).
-     * Thus, the value that is being passed in to the constructor is not exactly equal to 0.1,
-     * appearances
-     * notwithstanding.</li>
+     * represented exactly as a {@code double} (or, for that matter, as a binary fraction of any
+     * finite length). Thus, the value that is being passed in to the constructor is not exactly
+     * equal to 0.1, appearances notwithstanding.</li>
      * <li>The {@code String} constructor, on the other hand, is perfectly predictable: writing
      * {@code new BigDecimal("0.1")} creates a {@code BigDecimalEx} which is exactly equal to 0.1,
-     * as
-     * one would expect. Therefore, it is generally recommended that the String constructor be used
-     * in preference to this one.</li>
+     * as one would expect. Therefore, it is generally recommended that the String constructor be
+     * used in preference to this one.</li>
      * <li> When a {@code double} must be used as a source for a {@code BigDecimalEx}, note that
-     * this
-     * constructor provides an exact conversion; it does not give the same result as converting the
-     * {@code double} to a {@code String} using the {@link Double#toString(double)} method and then
-     * using the {@link BigDecimalEx(String)} constructor. To get that result, use the static
+     * this constructor provides an exact conversion; it does not give the same result as converting
+     * the {@code double} to a {@code String} using the {@link Double#toString(double)} method and
+     * then using the {@link BigDecimalEx(String)} constructor. To get that result, use the static
      * {@link BigDecimal#valueOf(double)} method.</li>
      * </ol>
      *
@@ -273,8 +264,7 @@ public class BigDecimalEx
 
     /**
      * Translates a double into a {@code BigDecimalEx}, with rounding according to the context
-     * settings.
-     * The scale of the {@code BigDecimalEx} is the smallest value such that
+     * settings. The scale of the {@code BigDecimalEx} is the smallest value such that
      * (<code>10<sup>scale</sup> × val</code>) is an integer.
      * <p>
      * The results of this constructor can be somewhat unpredictable and its use is generally not
@@ -439,8 +429,8 @@ public class BigDecimalEx
      *
      * @param val String representation of {@code BigDecimalEx}.
      *
-     * @throws NumberFormatException if {@code val} is not a valid representation of a {
-     * @ocde BigDecimalEx}. */
+     * @throws NumberFormatException if {@code val} is not a valid representation of a
+     *                               {@code BigDecimalEx}. */
     public BigDecimalEx( String val ) {
         super( val );
     }

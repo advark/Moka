@@ -50,7 +50,7 @@ public class JavaVM {
     /**
      * Returns the maximum amount of memory the virtual machine will attempt to use.
      *
-     * @return
+     * @return the maximum total number of bytes that can allocated by the VM.
      */
     static public long getMaxMemory() {
         return Runtime.getRuntime().maxMemory();
@@ -87,7 +87,10 @@ public class JavaVM {
      * Returns the operating system's name.
      *
      * @return
+     *
+     * @deprecated Use {@link SystemUtils#getOSName()} instead.
      */
+    @Deprecated
     static public String getOSName() {
         return System.getProperty( "os.name" );
     }
@@ -96,7 +99,10 @@ public class JavaVM {
      * Checks if the current platform is of Windows family.
      *
      * @return {@code true} is the platform is of Windows family.
+     *
+     * @deprecated Use {@link SystemUtils#isWindows()} instead.
      */
+    @Deprecated
     static public boolean isWindows() {
         return getOSName().startsWith( "Windows" );
     }
@@ -105,7 +111,10 @@ public class JavaVM {
      * Checks if the current platform is of Linux family.
      *
      * @return {@code true} is the platform is of Linux family.
+     *
+     * @deprecated Use {@link SystemUtils#isLinux()} instead.
      */
+    @Deprecated
     static public boolean isLinux() {
         return getOSName().startsWith( "Linux" );
     }
@@ -114,7 +123,10 @@ public class JavaVM {
      * Returns the operating system's version.
      *
      * @return
+     *
+     * @deprecated Use {@link SystemUtils#getOSVersion()} instead.
      */
+    @Deprecated
     static public String getOSVersion() {
         return System.getProperty( "os.version" );
     }
@@ -123,11 +135,15 @@ public class JavaVM {
      * Returns the operating system's architecture.
      *
      * @return
+     *
+     * @deprecated Use {@link SystemUtils#getOSArch()} instead.
      */
+    @Deprecated
     static public String getOSArch() {
         return System.getProperty( "os.arch" );
     }
 
+    @Deprecated
     static public String getLineSeparator() {
         return System.getProperty( "line.separator" );
     }
@@ -138,7 +154,7 @@ public class JavaVM {
      * @return
      */
     static public String getStartupDir() {
-        return System.clearProperty( "user.dir" );
+        return System.getProperty( "user.dir" );
     }
 
     private JavaVM() {
