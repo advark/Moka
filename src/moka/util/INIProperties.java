@@ -38,6 +38,8 @@ import java.util.List;
  */
 public class INIProperties {
 
+    private ArrayList<Node> nodes;
+
     public INIProperties() {
     }
 
@@ -109,7 +111,7 @@ public class INIProperties {
             extends Node {
 
         public Keyword() {
-            super( Node.NODE_KEYWORD );
+            super( Node.NodeType.NODE_KEYWORD );
             name = null;
             value = null;
         }
@@ -152,7 +154,7 @@ public class INIProperties {
             extends Node {
 
         public Section() {
-            super( Node.NODE_SECTION );
+            super( Node.NodeType.NODE_SECTION );
             name = null;
             nodes = new ArrayList<>();
         }
@@ -183,7 +185,7 @@ public class INIProperties {
             extends Node {
 
         public Comment() {
-            super( Node.NODE_COMMENT );
+            super( Node.NodeType.NODE_COMMENT );
         }
 
         public Comment( String comment ) {
@@ -202,17 +204,23 @@ public class INIProperties {
         private String comment;
     }
 
-    private class Node {
+    static private class Node {
 
-        final public static int NODE_BLANKLINE = 0;
-        final public static int NODE_KEYWORD = 1;
-        final public static int NODE_SECTION = 2;
-        final public static int NODE_COMMENT = 3;
+        public enum NodeType {
+            NODE_BLANKLINE,
+            NODE_KEYWORD,
+            NODE_SECTION,
+            NODE_COMMENT
+        }
 
-        public Node( int type ) {
+        public Node( NodeType type ) {
             this.type = type;
         }
 
-        public int type;
+        public NodeType getType() {
+            return type;
+        }
+
+        final private NodeType type;
     }
 }
