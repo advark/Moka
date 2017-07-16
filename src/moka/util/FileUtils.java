@@ -16,9 +16,13 @@
 package moka.util;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
+ * This class provides complementary static methods that extend or add functionalities to the
+ * {@code File} class.
  *
  * @author Yanick Poirier
  */
@@ -61,31 +65,88 @@ public class FileUtils {
      *         cannot be established.
      */
     static public File currentDirectory() {
-        return new File( "," ).getAbsoluteFile();
+        return new File( "." ).getAbsoluteFile();
     }
 
-    static public File[] findFiles( File path,
-                                    String mask,
+    /**
+     * Finds all the files in the specified directory that matches the {@code FilenameFilter}
+     * pattern. The directories will not appear in the returned array.
+     *
+     * @param dir       Directory where the search will begin
+     * @param pattern   Pattern that a file name must match.
+     * @param recursive If {@code true}, the search will be propagated to the sub-directories as
+     *                  well. If {@code false}, the search is not propagated to the sub-directories.
+     *
+     * @return An array of {@code File} object.
+     */
+    static public File[] findFiles( File dir,
+                                    FilenameFilter pattern,
                                     boolean recursive ) {
         ArrayList<File> files = new ArrayList<>();
 
-        return null;
+        File root = new File( "", dir.getAbsolutePath() );
+        String list[] = root.list( pattern );
+
+        for( String name : list ) {
+            File f = new File( name );
+            if( f.isDirectory() && recursive ) {
+                files.addAll( Arrays.asList(
+                        findFiles( new File( dir.getAbsolutePath() ), pattern, recursive )
+                ) );
+            }
+            else {
+                files.add( f );
+            }
+        }
+
+        return (File[]) files.toArray();
     }
 
-    static public File[] findFiles( File path,
-                                    String mask ) {
-        return findFiles( path, mask, false );
+    /**
+     * Finds all the files in the specified directory that matches the {@code FilenameFilter}
+     * pattern. The directories will not appear in the returned array. The sub-directories of
+     * {@code dir} are not searched.
+     *
+     * @param dir     Directory where the search will begin
+     * @param pattern Pattern that a file name must match.
+     *
+     * @return An array of {@code File} object.
+     */
+    static public File[] findFiles( File dir,
+                                    FilenameFilter pattern ) {
+        return findFiles( dir, pattern, false );
     }
 
-    static public File[] findFiles( String path,
-                                    String mask ) {
-        return findFiles( new File( path ), mask );
+    /**
+     * Finds all the files in the specified directory that matches the {@code FilenameFilter}
+     * pattern. The directories will not appear in the returned array. The sub-directories of
+     * {@code dir} are not searched.
+     *
+     * @param dir     Directory where the search will begin
+     * @param pattern Pattern that a file name must match.
+     *
+     * @return An array of {@code File} object.
+     */
+    static public File[] findFiles( String dir,
+                                    FilenameFilter pattern ) {
+        return findFiles( new File( dir ), pattern );
     }
 
-    static public File[] findFiles( String path,
-                                    String mask,
+    /**
+     * Finds all the files in the specified directory that matches the {@code FilenameFilter}
+     * pattern. The directories will not appear in the returned array.
+     *
+     * @param dir       Directory where the search will begin
+     * @param pattern   Pattern that a file name must match.
+     * @param recursive If {@code true}, the search will be propagated to the sub-directories as
+     *                  well. If {@code false}, the search is not propagated to the sub-directories.
+     *
+     * @return An array of {@code File} object.
+     */
+    static public File[] findFiles( String dir,
+                                    FilenameFilter pattern,
                                     boolean recursive ) {
-        return findFiles( new File( path ), mask, recursive );
+        return findFiles( new File( dir ), pattern, recursive );
     }
 
     private FileUtils() {
