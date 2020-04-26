@@ -18,7 +18,7 @@ package moka.util.checksum;
 import java.util.zip.Checksum;
 
 /**
- * This class computes a CRC64 value use the polynomial 0xC96C5795D7870F42.
+ * This class computes a CRC64 value using the polynomial 0xC96C5795D7870F42.
  *
  * @author Yanick Poirier
  */
@@ -50,6 +50,18 @@ public class CRC64
      */
     public void CRC64() {
         mValue = -1;
+    }
+
+    /**
+     * This method is equivalent to:
+     * <pre>
+     * update(data, 0, data.length);
+     * </pre>
+     *
+     * @param data
+     */
+    public void update( byte data[] ) {
+        update( data, 0, data.length );
     }
 
     @Override

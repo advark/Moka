@@ -2,3 +2,5 @@
 /test/moka/io/Base32StreamTest.java
 /test/moka/math/BigDecimalExTest.java
 /test/moka/util/StringUtilsTest.java
+/build/
+/dist/
